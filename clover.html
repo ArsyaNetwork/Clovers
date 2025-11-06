@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clover | Bedrock Server</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --bg-main: #080808;
+            --bg-panel: #111111;
+            --text-primary: #ffffff;
+            --text-muted: #999999;
+            --accent: #3ba55d;
+            --accent-glow: rgba(59, 165, 93, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { width: 90%; max-width: 1000px; margin: 0 auto; }
+        .text-center { text-align: center; }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 95vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle at 50% 30%, #1a1a1a 0%, var(--bg-main) 70%); padding: 2rem;
+        }
+        .hero-logo-container {
+            margin-bottom: 2rem; width: 200px; height: 200px; animation: fadeDown 1.5s ease-out forwards;
+        }
+        .hero-logo {
+            width: 100%; height: auto; filter: drop-shadow(0 0 35px var(--accent-glow)); animation: spinSlow 60s linear infinite;
+        }
+        .hero-title {
+            font-size: 3.5rem; font-weight: 800; letter-spacing: 0.25rem; margin-bottom: 0.5rem; background: linear-gradient(to bottom, #fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeUp 1.5s ease-out 0.3s forwards; opacity: 0;
+        }
+        .hero-subtitle {
+            color: var(--text-muted); font-size: 1.1rem; max-width: 500px; margin-bottom: 3rem; font-weight: 400; animation: fadeUp 1.5s ease-out 0.5s forwards; opacity: 0;
+        }
+
+        /* --- FEATURES --- */
+        .section-features {
+            padding: 5rem 0; background: var(--bg-main); border-top: 1px solid #151515;
+        }
+        .section-title {
+            font-size: 2rem; text-transform: uppercase; letter-spacing: 0.1rem; margin-bottom: 3rem; position: relative; display: inline-block;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 50%; height: 3px; background: var(--accent); margin: 1rem auto 0; opacity: 0.7; border-radius: 2px;
+        }
+        .grid-features {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: left;
+        }
+        .feature-item {
+            background: var(--bg-panel); padding: 2rem; border-radius: 12px; border: 1px solid #1a1a1a; transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .feature-item:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .feature-icon { font-size: 2rem; color: var(--accent); margin-bottom: 1rem; }
+        .feature-item h3 { margin-bottom: 0.5rem; font-weight: 600; }
+        .feature-item p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* --- CONNECT --- */
+        .section-connect {
+            padding: 5rem 0 8rem; background: linear-gradient(to bottom, var(--bg-main), #050505);
+        }
+        .connect-panel {
+            background: var(--bg-panel); border: 1px solid #222; border-radius: 20px; padding: 3rem; max-width: 550px; margin: 0 auto 4rem auto;
+            box-shadow: 0 20px 50px -20px rgba(0,0,0,0.7); position: relative; overflow: hidden;
+        }
+        .connect-panel::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+        .ip-group { margin-bottom: 2rem; text-align: left; }
+        .ip-label {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.8rem; display: block; font-weight: 700;
+        }
+        .ip-input-container {
+            display: flex; align-items: center; background: #090909; border: 1px solid #1f1f1f; border-radius: 8px; padding: 0.8rem 1rem; transition: border-color 0.3s;
+        }
+        .ip-input-container:focus-within { border-color: var(--accent); }
+        .ip-value {
+            flex-grow: 1; font-family: 'Courier New', monospace; font-size: 1.1rem; color: var(--accent); font-weight: 600; white-space: nowrap; overflow: hidden; border-right: 3px solid var(--accent); width: 0;
+        }
+        .typing-done { border-right-color: transparent; }
+        .btn-copy {
+            background: #1a1a1a; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-left: 1rem;
+        }
+        .btn-copy:hover { background: var(--accent); color: #000; }
+
+        /* --- JOIN BUTTON --- */
+        .btn-join-server {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent);
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 12px;
+            margin-bottom: 2.5rem; /* Jarak sebelum link discord */
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px -5px var(--accent-glow);
+        }
+        .btn-join-server:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -5px var(--accent-glow);
+            background: #45bd6b; /* Warna sedikit lebih terang saat hover */
+        }
+
+
+        /* --- IMAGE SCROLLING GALLERY --- */
+        .gallery-container {
+            width: 100%; max-width: 900px; margin: 0 auto; overflow: hidden; border-radius: 16px; border: 1px solid #222; position: relative; padding: 10px 0; height: 370px;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .gallery-track {
+            display: flex; width: fit-content; animation: scrollGallery 30s linear infinite;
+        }
+        .gallery-item {
+            flex-shrink: 0; width: 300px; height: 350px; margin: 0 10px; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease;
+        }
+        .gallery-item img:hover { transform: scale(1.05); }
+
+        /* --- BUTTONS & FOOTER --- */
+        .btn-main {
+            display: inline-block; padding: 1rem 2.5rem; background: var(--text-primary); color: var(--bg-main); text-decoration: none; font-weight: 700; border-radius: 50px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; transition: all 0.3s ease; opacity: 0; animation: fadeUp 1.5s ease-out 0.7s forwards;
+        }
+        .btn-main:hover {
+            background: var(--accent); color: #fff; box-shadow: 0 10px 30px -10px var(--accent-glow); transform: translateY(-3px);
+        }
+        .footer { padding: 2rem; text-align: center; color: #444; font-size: 0.85rem; border-top: 1px solid #111; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes scrollGallery {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-310px * 5)); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .connect-panel { padding: 2rem 1.5rem; }
+            .hero-logo-container { width: 160px; height: 160px; }
+            .gallery-item { width: 250px; height: 200px; }
+            .gallery-container { height: 220px; }
+             @keyframes scrollGallery {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(calc(-260px * 5)); }
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-logo-container">
+            <img src="https://i.ibb.co.com/RT6JVv8D/CLOVERS.png" alt="Clover Logo" class="hero-logo">
+        </div>
+        <h1 class="hero-title">CLOVERS</h1>
+        <p class="hero-subtitle">Tertidur dalam sejarah, kini bangkit kembali.<br>Server Minecraft Bedrock Vanilla sejati.</p>
+        <a href="#connect" class="btn-main">Mulai Petualangan</a>
+    </header>
+
+    <section class="section-features">
+        <div class="container text-center">
+            <h2 class="section-title">The Revival</h2>
+            <div class="grid-features">
+                <div class="feature-item">
+                    <div class="feature-icon">❖</div>
+                    <h3>Vanilla</h3>
+                    <p>Pengalaman bertahan hidup otentik tanpa modifikasi yang merusak gameplay asli.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Performa Stabil</h3>
+                    <p>Dioptimalkan khusus untuk client Bedrock Edition agar bermain tanpa gangguan lag.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✦</div>
+                    <h3>Komunitas</h3>
+                    <p>Tempat bagi pemain dewasa yang menghargai ketenangan dan kerja sama.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="connect" class="section-connect">
+        <div class="container text-center">
+            <h2 class="section-title">Bergabunglah</h2>
+            
+            <div class="connect-panel">
+                <div class="ip-group">
+                    <label class="ip-label">Server Address</label>
+                    <div class="ip-input-container">
+                        <span id="server-ip" class="ip-value" data-text="play.clover.my.id"></span>
+                        <button onclick="copyToClipboard('play.clover.my.id', this)" class="btn-copy">SALIN</button>
+                    </div>
+                </div>
+                <div class="ip-group">
+                    <label class="ip-label">Server Port</label>
+                    <div class="ip-input-container">
+                        <span id="server-port" class="ip-value" data-text="19225"></span>
+                        <button onclick="copyToClipboard('19225', this)" class="btn-copy">SALIN</button>
+                    </div>
+                </div>
+
+                <a href="minecraft://?addExternalServer=Clover|play.clover.my.id:19225" class="btn-join-server">
+                    🚀 MASUK SERVER SEKARANG
+                </a>
+
+                <div style="padding-top: 1.5rem; border-top: 1px dashed #333;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Ingin berkomunitas?</p>
+                    <a href="https://discord.gg/clover" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 700; letter-spacing: 1px;">JOIN DISCORD KAMI &rarr;</a>
+                 </div>
+            </div>
+
+            <h3 style="color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 400;">Gallery Server</h3>
+            <div class="gallery-container">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/B5jgMCQh/Whats-App-Image-2025-11-06-at-12-57-25.jpg" alt="Screenshot 1"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/JFMBN776/Whats-App-Image-2025-11-06-at-12-56-54.jpg" alt="Screenshot 2"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/ymffKpVb/Whats-App-Image-2025-11-06-at-12-56-53-2.jpg" alt="Screenshot 3"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/BVNZFGv9/Whats-App-Image-2025-11-06-at-12-56-53-1.jpg" alt="Screenshot 4"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/7NkY7kLx/Whats-App-Image-2025-11-06-at-12-56-52.jpg" alt="Screenshot 5"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/B5jgMCQh/Whats-App-Image-2025-11-06-at-12-57-25.jpg" alt="Screenshot 1"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/JFMBN776/Whats-App-Image-2025-11-06-at-12-56-54.jpg" alt="Screenshot 2"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/ymffKpVb/Whats-App-Image-2025-11-06-at-12-56-53-2.jpg" alt="Screenshot 3"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/BVNZFGv9/Whats-App-Image-2025-11-06-at-12-56-53-1.jpg" alt="Screenshot 4"></div>
+                    <div class="gallery-item"><img src="https://i.ibb.co.com/7NkY7kLx/Whats-App-Image-2025-11-06-at-12-56-52.jpg" alt="Screenshot 5"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 CLOVER. Vanilla Bedrock Revival Project.</p>
+    </footer>
+
+    <script>
+        function typeWriter(elementId, speed) {
+            const element = document.getElementById(elementId);
+            const text = element.getAttribute('data-text');
+            let i = 0;
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    if (element.innerHTML === "") {
+                        element.style.width = 'auto';
+                        function type() {
+                            if (i < text.length) {
+                                element.innerHTML += text.charAt(i);
+                                i++;
+                                setTimeout(type, speed);
+                            } else {
+                                element.classList.add('typing-done');
+                            }
+                        }
+                        type();
+                    }
+                    observer.disconnect();
+                }
+            }, { threshold: 0.5 });
+            observer.observe(element);
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+             typeWriter("server-ip", 100);
+             setTimeout(() => { typeWriter("server-port", 150); }, 1000);
+        });
+
+        function copyToClipboard(textToCopy, btnElement) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btnElement.innerText;
+                btnElement.innerText = "OK!";
+                btnElement.style.background = "var(--accent)";
+                btnElement.style.color = "#000";
+                setTimeout(() => {
+                    btnElement.innerText = originalText;
+                    btnElement.style.background = "";
+                    btnElement.style.color = "";
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
